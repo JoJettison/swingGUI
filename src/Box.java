@@ -14,11 +14,6 @@ public class Box implements MyShape {
     }
 
     @Override
-    public Point getOrigin() {
-        return this.origin;
-    }
-
-    @Override
     public void setOrigin(Point org) {
         this.origin = org;
     }

@@ -13,11 +13,6 @@ public class Circle implements MyShape {
     }
 
     @Override
-    public Point getOrigin(){
-        return origin;
-    }
-
-    @Override
     public void setOrigin(Point org){
         this.origin = org;
     }
