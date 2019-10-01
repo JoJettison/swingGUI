@@ -13,14 +13,9 @@ public class Circle implements MyShape {
     }
 
     @Override
-    public void setOrigin(Point org){
-        this.origin = org;
-    }
-    @Override
     public void paintComponent(Graphics g){
         int diameter = (int) this.diameter;
         g.setColor(Color.black);
-       //g.fillOval(origin.x, origin.y,diameter,diameter);
         g.drawOval(origin.x, origin.y,diameter,diameter);
     }
 

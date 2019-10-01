@@ -1,5 +1,5 @@
 import java.awt.*;
-//Composite Patten
+//Composite Pattern
 public class Box implements MyShape {
     private Point origin;
     private double length;
@@ -14,15 +14,9 @@ public class Box implements MyShape {
     }
 
     @Override
-    public void setOrigin(Point org) {
-        this.origin = org;
-    }
-
-    @Override
     public void paintComponent(Graphics g) {
         int length = (int) this.length;
         g.setColor(Color.black);
-        //g.fillRect(origin.x, origin.y, length, length);
         g.drawRect(origin.x, origin.y, length, length);
     }
 }
