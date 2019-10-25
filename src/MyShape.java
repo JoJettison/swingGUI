@@ -1,7 +1,18 @@
 import java.awt.*;
     //Composite pattern
-public interface MyShape {
+public abstract class MyShape {
 
-    void paintComponent(Graphics g);
+    int x,y;
+
+    public MyShape(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public abstract  void draw(Graphics graphics);
+
+    public void add(MyShape s){
+
+    }
 }
 

@@ -1,23 +1,26 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 //Composite Pattern
-public class CompositeMyShape implements MyShape {
+public class CompositeMyShape extends MyShape {
+    Collection allShapes;
 
-    public static final ArrayList<MyShape> shapes = new ArrayList<MyShape>();
+    public CompositeMyShape(){
+        super(0,0);
+         allShapes = new ArrayList<MyShape>();
+    }
 
     public void add(MyShape sh){
-        shapes.add(sh);
+        allShapes.add(sh);
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(Color.black);
-        //Iterator Pattern
-        for (MyShape sh: shapes) {
-            sh.paintComponent(g);
+    public void draw(Graphics graphics) {
+        Iterator it = allShapes.iterator();
+        while (it.hasNext()){
+            ((MyShape) it.next()).draw(graphics);
         }
     }
 }

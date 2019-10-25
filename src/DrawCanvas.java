@@ -3,51 +3,35 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class DrawCanvas extends JPanel  {
-    private CompositeMyShape shapeCollection = new CompositeMyShape();
-    private double length;
-    private int mode;
+    MyShape shapeCollection;
     private JButton B;
     private JButton C;
     //Controller Pattern
-    public DrawCanvas(double len, JButton Box, JButton Circ){
+    private CanvasController controller;
 
-        this.length = len;
+    public DrawCanvas(double len, JButton Box, JButton Circ){
         this.B = Box;
         this.C = Circ;
 
         setBackground(Color.white);
 
+        controller = new CanvasController();
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                switch (mode){
-                    case 0:
-                        CompositeMyShape.shapes.add(new Circle(e.getX(), e.getY(),length));
-                        break;
-                    case 1:
-                        CompositeMyShape.shapes.add(new Box(e.getX(), e.getY(), length));
-                        break;
-                }
+                controller.canvasClicked((int) e.getPoint().getX(),(int)e.getPoint().getY());
+                shapeCollection = controller.getShapes();
                 repaint();
             }
         });
 
-        this.B.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                mode = 1;
-            }
-        });
+        this.B.addActionListener(actionEvent -> controller.boxClicked());
 
-        this.C.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                mode =0;
-            }
-        });
+        this.C.addActionListener(actionEvent -> controller.cirClicked());
     }
 
     public void paintComponent(Graphics g) {
-        shapeCollection.paintComponent(g);
+        super.paintComponent(g);
+        if(shapeCollection!=null) shapeCollection.draw(g);
     }
 }
