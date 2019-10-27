@@ -1,26 +1,29 @@
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.Stack;
 
 //Composite Pattern
 public class CompositeMyShape extends MyShape {
-    Collection allShapes;
+    Stack<MyShape> allShapes;
 
     public CompositeMyShape(){
         super(0,0);
-         allShapes = new ArrayList<MyShape>();
+         allShapes = new Stack<MyShape>();
     }
 
     public void add(MyShape sh){
-        allShapes.add(sh);
+        allShapes.push(sh);
+    }
+
+    public Stack<MyShape> getAllShapes(){
+        return allShapes;
     }
 
     @Override
     public void draw(Graphics graphics) {
-        Iterator it = allShapes.iterator();
+        Iterator<MyShape> it = allShapes.iterator();
         while (it.hasNext()){
-            ((MyShape) it.next()).draw(graphics);
+            (it.next()).draw(graphics);
         }
     }
 }

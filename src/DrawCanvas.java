@@ -6,12 +6,18 @@ public class DrawCanvas extends JPanel  {
     MyShape shapeCollection;
     private JButton B;
     private JButton C;
+    private JButton T;
+    private JButton U;
+    private JButton R;
     //Controller Pattern
     private CanvasController controller;
 
-    public DrawCanvas(double len, JButton Box, JButton Circ){
+    public DrawCanvas(JButton Box, JButton Circ, JButton Text, JButton Undo, JButton Redo) {
         this.B = Box;
         this.C = Circ;
+        this.T = Text;
+        this.U = Undo;
+        this.R = Redo;
 
         setBackground(Color.white);
 
@@ -19,7 +25,7 @@ public class DrawCanvas extends JPanel  {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                controller.canvasClicked((int) e.getPoint().getX(),(int)e.getPoint().getY());
+                controller.canvasClicked((int) e.getPoint().getX(), (int) e.getPoint().getY());
                 shapeCollection = controller.getShapes();
                 repaint();
             }
@@ -28,6 +34,26 @@ public class DrawCanvas extends JPanel  {
         this.B.addActionListener(actionEvent -> controller.boxClicked());
 
         this.C.addActionListener(actionEvent -> controller.cirClicked());
+
+        this.T.addActionListener(actionEvent -> controller.txtClicked());
+
+        this.U.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                controller.undoClicked();
+                repaint();
+            }
+        });
+
+        this.R.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                controller.redoClicked();
+                repaint();
+            }
+        });
+
+
     }
 
     public void paintComponent(Graphics g) {
