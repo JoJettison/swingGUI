@@ -25,6 +25,7 @@ public class CanvasController {
 
     public void canvasClicked(int x, int y) {
         try {
+            //state pattern
             shapes.add( ctrlContext.doAction(x,y));
             ctrlContext.setState(in);
         }
