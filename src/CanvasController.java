@@ -1,8 +1,12 @@
 
 //Controller Pattern
 public class CanvasController {
-    private final int INIT = 0, BOX = 1, CIR = 2;
-    private int state = INIT;
+    //State instances
+    DrawState bx = new BoxState();
+    DrawState ce = new CircleState();
+    DrawState in = new InitState();
+
+    Context ctrlContext = new Context();
     MyShape shapes;
 
     public CanvasController() {
@@ -14,27 +18,17 @@ public class CanvasController {
     }
 
     public void boxClicked() {
-        state = BOX;
+        ctrlContext.setState(bx);
     }
 
-    public void cirClicked() {
-        state = CIR;
-    }
+    public void cirClicked() { ctrlContext.setState(ce); }
 
     public void canvasClicked(int x, int y) {
-        switch (state) {
-            case INIT:
-                break;
-            case BOX:
-                MyShape shape = new Box(x, y);
-                shapes.add(shape);
-                state = INIT;
-                break;
-            case CIR:
-                shape = new Circle(x, y);
-                shapes.add(shape);
-                state = INIT;
-                break;
+        try {
+            shapes.add( ctrlContext.doAction(x,y));
+            ctrlContext.setState(in);
         }
-    }
+        catch (Exception e){}
+        }
+
 }
